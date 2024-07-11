@@ -29,7 +29,7 @@ impl HttpBlocksMonitor {
         let current_block = self.provider.get_block_number().await?;
         // let mut transformed_logs = Vec::new();
         let mut end_block = 12;
-        let start_block = 12;
+        let start_block = 20282986;
 
         if current_block >= start_block {
             end_block = if start_block + 1000 > current_block {
@@ -47,7 +47,9 @@ impl HttpBlocksMonitor {
         let logs = self.provider.get_logs(&filter).await?;
 
         for log in logs {
-            println!("{:?}", log);
+            // println!("-----------------------{:?}----------------------------", log.data().topics());
+            println!("-----------------------{:?}----------------------------",  log.block_number.unwrap());
+
         }
 
         Ok(())
