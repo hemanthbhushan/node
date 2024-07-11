@@ -47,9 +47,8 @@ impl HttpBlocksMonitor {
         let logs = self.provider.get_logs(&filter).await?;
 
         for log in logs {
-            // println!("-----------------------{:?}----------------------------", log.data().topics());
-            println!("-----------------------{:?}----------------------------",  log.block_number.unwrap());
-
+            // // println!("-----------------------{:?}----------------------------", log.data().topics());
+            // println!("-----------------------{:?}----------------------------",  log.block_number.unwrap());
         }
 
         Ok(())
