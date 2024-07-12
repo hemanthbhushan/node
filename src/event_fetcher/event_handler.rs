@@ -10,10 +10,6 @@ use dotenv::dotenv;
 use eyre::{Ok, Result};
 use reqwest::{Client, Url};
 
-struct Events {
-    rpc: String,
-}
-
 pub struct HttpBlocksMonitor {
     provider: RootProvider<Http<Client>>,
 }
@@ -29,15 +25,16 @@ impl HttpBlocksMonitor {
         let current_block = self.provider.get_block_number().await?;
         // let mut transformed_logs = Vec::new();
         let mut end_block = 12;
-        let start_block = 20282986;
+        let start_block = 20287845;
 
         if current_block >= start_block {
-            end_block = if start_block + 1000 > current_block {
+            end_block = if start_block + 10 > current_block {
                 current_block
             } else {
-                start_block + 1000
+                start_block + 10
             };
         }
+        println!("startBlock = {start_block} , end_block = {end_block} , Current_block = {current_block}" );
 
         let filter = Filter::new()
             .address(contract_addr.parse::<Address>()?)
@@ -47,7 +44,8 @@ impl HttpBlocksMonitor {
         let logs = self.provider.get_logs(&filter).await?;
 
         for log in logs {
-            // // println!("-----------------------{:?}----------------------------", log.data().topics());
+            // println!(
+            //     "---------------------------------------------------",);
             // println!("-----------------------{:?}----------------------------",  log.block_number.unwrap());
         }
 
